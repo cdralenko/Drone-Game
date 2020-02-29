@@ -9,15 +9,15 @@ public class REEEEEEE : MonoBehaviour
 
     private void Start()
     {
-        mainCamera.GetComponent<MouseLook>().enabled = false;
         mainCamera.GetComponent<MouseLook>().MousePlease();
     }
 
     public void PlayGame()
     {
-        mainCamera.GetComponent<MouseLook>().enabled = true;
         mainCamera.GetComponent<MouseLook>().GoAwayMouse();
-        Destroy(GameObject.FindWithTag("Menu"));
+        GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
+        foreach (GameObject menu in menus)
+            Destroy(menu);
     }
 
     public void QuitGame()

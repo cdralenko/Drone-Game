@@ -39,6 +39,7 @@ public class MouseLook : MonoBehaviour
     public void GoAwayMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
 

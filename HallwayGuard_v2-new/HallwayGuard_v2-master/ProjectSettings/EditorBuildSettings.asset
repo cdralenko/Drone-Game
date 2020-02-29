@@ -5,16 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 8afe7b1fad3d36344b4f125a97011241
   - enabled: 1
     path: Assets/Scenes/ConnorScene.unity
     guid: 5ddb96681cfcb844fbe207f2d1d8f6d7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WinScreen.unity
     guid: d5709f8384529ec4fb89becc3c2c7f2f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FailScreen.unity
     guid: 1495d9886058f3d40b036e55859f24ee
+  - enabled: 0
+    path: Assets/Scenes/FinalScene.unity
+    guid: 3576d1f0d2e3b1c4da85aea552aaa3a7
   m_configObjects: {}
