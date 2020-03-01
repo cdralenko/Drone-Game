@@ -11,6 +11,8 @@ public class DroneMover : MonoBehaviour
 
     public Transform player;
 
+    public GameObject pausemenu;
+
     public float speed = 1.0f;
     private float startTime;
     private float journeyLength;
@@ -28,6 +30,9 @@ public class DroneMover : MonoBehaviour
     public LayerMask RayCastLayers;
 
     public GameObject gc;
+
+    public AudioSource dronealarm;
+    public AudioSource shoot;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +68,16 @@ public class DroneMover : MonoBehaviour
         Color empty = Color.red;
         red.a = 1f;
         empty.a = 0f;
+
+        //precaution for when the game ends so the player doesn't accidentally die
+        if ((gc.GetComponent<GameController>().musicstate == 2) || (gc.GetComponent<GameController>().musicstate == 3))
+        {
+            if (dronealarm.isPlaying)
+            {
+                dronealarm.Stop();
+            }
+            dronestate = 0;
+        }
 
         //Scout Mode
         if (dronestate == 0)
@@ -106,16 +121,22 @@ public class DroneMover : MonoBehaviour
             //If the sentry cannot see the player
             if (Physics.Linecast(transform.position, player.position, out hit, RayCastLayers))
             {
-                
-                recovercounter++;
-                alertcounter--;
-                lineRenderer.startColor = empty;
-                lineRenderer.endColor = empty;
-
-                if (recovercounter >= 150)
+                if (pausemenu.GetComponent<PauseMenu>().GameIsPaused == false)
                 {
-                    recovercounter = 0;
-                    dronestate = 0;
+                    recovercounter++;
+                    alertcounter--;
+                    lineRenderer.startColor = empty;
+                    lineRenderer.endColor = empty;
+
+                    if (recovercounter >= 150)
+                    {
+                        if (dronealarm.isPlaying)
+                        {
+                            dronealarm.Stop();
+                        }
+                        recovercounter = 0;
+                        dronestate = 0;
+                    }
                 }
 
             }
@@ -123,12 +144,16 @@ public class DroneMover : MonoBehaviour
             //If the sentry sees the player
             else
             {
-                recovercounter = 0;
-                alertcounter++;
-                if (alertcounter >= 120)
+                if (pausemenu.GetComponent<PauseMenu>().GameIsPaused == false)
                 {
-                    alertcounter = 0;
-                    gc.GetComponent<GameController>().health--;
+                    recovercounter = 0;
+                    alertcounter++;
+                    if (alertcounter >= 120)
+                    {
+                        alertcounter = 0;
+                        gc.GetComponent<GameController>().health--;
+                        shoot.Play();
+                    }
                 }
 
 
@@ -148,16 +173,24 @@ public class DroneMover : MonoBehaviour
 
         if (dronestate == 2)
         {
+            if (dronealarm.isPlaying)
+            {
+                dronealarm.Stop();
+            }
             lineRenderer.startColor = empty;
             lineRenderer.endColor = empty;
 
             lt.color = Color.yellow;
             lt.intensity = 0.5f;
-            stuncounter++;
-            if (stuncounter >= 300)
+            alarm.intensity = 0;
+            if (pausemenu.GetComponent<PauseMenu>().GameIsPaused == false)
             {
-                stuncounter = 0;
-                dronestate = 0;
+                stuncounter++;
+                if (stuncounter >= 300)
+                {
+                    stuncounter = 0;
+                    dronestate = 0;
+                }
             }
 
         }
@@ -170,6 +203,7 @@ public class DroneMover : MonoBehaviour
         {
             if (other.tag == "Player")
             {
+                dronealarm.Play();
                 dronestate = 1;
             }
         }

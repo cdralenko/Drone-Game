@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public AudioSource buttonsound;
 
     void Update()
     {
@@ -14,11 +15,13 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
+                buttonsound.Play();
                 Resume();
                 GameIsPaused = false;
             }
             else
             {
+                buttonsound.Play();
                 Pause();
                 GameIsPaused = true;
             }

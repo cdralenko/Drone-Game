@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public GameObject mainCamera;
+    public GameObject gc;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        gc.GetComponent<GameController>().musicstate = 1;
         SceneManager.LoadScene("ConnorScene");
     }
 

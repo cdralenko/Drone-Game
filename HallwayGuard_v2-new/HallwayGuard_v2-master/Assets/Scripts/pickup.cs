@@ -6,6 +6,8 @@ public class pickup : MonoBehaviour
 {
     public GameObject gc;
 
+    public AudioSource pickupsound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class pickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            pickupsound.Play();
             gc.GetComponent<GameController>().disrupter++;
             Destroy(gameObject);
         }

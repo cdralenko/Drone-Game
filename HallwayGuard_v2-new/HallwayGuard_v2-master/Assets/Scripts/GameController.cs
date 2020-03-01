@@ -16,8 +16,19 @@ public class GameController : MonoBehaviour
     public GameObject failScreen;
     public GameObject mainCamera;
 
+    public int musicstate;
+
+    public AudioSource music;
+
+    public AudioClip menumusic;
+    public AudioClip gamemusic;
+    public AudioClip deathmusic;
+    public AudioClip winmusic;
+
     void Start()
     {
+        music.clip = menumusic;
+        music.Play();
         health = 5;
         disrupter = 0;
 
@@ -39,8 +50,45 @@ public class GameController : MonoBehaviour
 
         if (health == 0)
         {
+            musicstate = 2;
+
             failScreen.SetActive(true);
             mainCamera.GetComponent<MouseLook>().MousePlease();
+
         }
+
+        //music
+        if ((musicstate == 0) && (music.clip != menumusic))
+        {
+            music.Stop();
+            music.clip = menumusic;
+            music.loop = true;
+            music.Play();
+        }
+
+        if ((musicstate == 1) && (music.clip != gamemusic))
+        {
+            music.Stop();
+            music.clip = gamemusic;
+            music.loop = true;
+            music.Play();
+        }
+
+        if ((musicstate == 2) && (music.clip != deathmusic))
+        {
+            music.Stop();
+            music.clip = deathmusic;
+            music.loop = false;
+            music.Play();
+        }
+
+        if ((musicstate == 3) && (music.clip != winmusic))
+        {
+            music.Stop();
+            music.clip = winmusic;
+            music.loop = false;
+            music.Play();
+        }
+
     }
 }

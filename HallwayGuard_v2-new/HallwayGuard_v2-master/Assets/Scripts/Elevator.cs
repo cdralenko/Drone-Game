@@ -13,6 +13,7 @@ public class Elevator : MonoBehaviour
 
     public GameObject mainCamera;
     public GameObject winScreen;
+    public GameObject gc;
 
     public bool rise;
 
@@ -35,7 +36,7 @@ public class Elevator : MonoBehaviour
         if (other.tag == "Player")
         {
             rise = true;
-
+            gc.GetComponent<GameController>().musicstate = 3;
             winScreen.SetActive(true);
             mainCamera.GetComponent<MouseLook>().MousePlease();
         }

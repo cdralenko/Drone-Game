@@ -18,7 +18,7 @@ public class EMP : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.tag == "Drone") || (other.tag == "Level"))
+        if ((other.tag == "DroneHitBox") || (other.tag == "Level"))
         {
             Destroy(gameObject);
         }

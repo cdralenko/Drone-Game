@@ -8,6 +8,7 @@ public class projectileshooter : MonoBehaviour
     public Transform empspawn;
 
     public GameObject gc;
+    public AudioSource throwsound;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class projectileshooter : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                throwsound.Play();
                 GameObject projectile = Instantiate(prefab) as GameObject;
                 projectile.transform.position = empspawn.position;
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();

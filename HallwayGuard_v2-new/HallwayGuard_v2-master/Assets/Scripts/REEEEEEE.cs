@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class REEEEEEE : MonoBehaviour
 {
     public GameObject mainCamera;
+    public GameObject gc;
+    public AudioSource buttonsound;
 
     private void Start()
     {
@@ -14,6 +16,8 @@ public class REEEEEEE : MonoBehaviour
 
     public void PlayGame()
     {
+        buttonsound.Play();
+        gc.GetComponent<GameController>().musicstate = 1;
         mainCamera.GetComponent<MouseLook>().GoAwayMouse();
         GameObject[] menus = GameObject.FindGameObjectsWithTag("Menu");
         foreach (GameObject menu in menus)
@@ -22,6 +26,7 @@ public class REEEEEEE : MonoBehaviour
 
     public void QuitGame()
     {
+        buttonsound.Play();
         Application.Quit();
     }
 }
